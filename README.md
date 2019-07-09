@@ -17,7 +17,6 @@
 
 Throughput: 366.66, Turnaround: 185.18
 ```
-----
 ## Shortest first
 ```
 ========== OUTPUT ==========
@@ -35,7 +34,6 @@ Throughput: 366.66, Turnaround: 185.18
 
 Throughput: 373.33, Turnaround: 190.50
 ```
-----
 ## Min Min
 ```
 ========== OUTPUT ==========
@@ -53,7 +51,6 @@ Throughput: 373.33, Turnaround: 190.50
 
 Throughput: 237.50, Turnaround: 163.58
 ```
-----
 ## Max Min
 ```
 ========== OUTPUT ==========
@@ -71,7 +68,6 @@ Throughput: 237.50, Turnaround: 163.58
 
 Throughput: 218.33, Turnaround: 162.91
 ```
-----
 ## Suffrage
 ```
 ========== OUTPUT ==========
@@ -97,3 +93,32 @@ Turnaround | 185.18 |  190.50 | 163.58 | 162.91 | 169.49
 -----------------------------------------------------------
               FCFS  |  Short  | MinMin | MaxMin | Suffrage
 ```
+----
+# Discussion
+## First come first served
+This method has the advantage of immediately handing the tasks as they arrive into the system.
+However there is no consideration given to how the resources (VMs) are allocated so bottlenecks
+could arrise if a long running task enters the system before several short running tasks
+
+## Shortest first
+This method has the advantage of dealing with the tasks in the order of thier size, or time to
+execute.  This allows as much work as possible to be complete in the shortest amount of time.
+Still this method does not consider the utilization of the VMs and can result in several
+bottlenecks.  As you can see from the results, this method doesn't not guarentee overall higher
+throughput nor turnaround times.
+
+## Min Min
+This method has the advantage of considering the VMs characteristics.  This method assignes the
+shortest tasks to the VMs with the fastest execution times.  This attempts to eliminate the
+bottlenecks that the shortest first method produces.  This method still results in VMs that
+aren't fully utilized especially when many large tasks are entered into the system.
+
+## Max Min
+This method also considers the VMs characteristics.  This method assignes the shortest tasks to
+the slowest VMs in an attempt to address the limitations of the MinMin method.  This method reduces
+the wait times of larger tasks in the system.
+
+## Suffrage
+This method also considers the VMs characteristics.  A suffrage value is computed which attempts
+to determine which task will suffer the most if not assigned to a given resource.  Using the
+suffrage value, tasks are matched to the best VM.
