@@ -27,12 +27,12 @@ class DatacenterBrokerMaxMin extends DatacenterBroker {
         ArrayList<Integer> scheduled = new ArrayList<>();
         
         while (scheduled.size() < cloudletList.size()) {
-            // find task with max time to execute
             double maxExecutionTime = 0;
             double minExecutionTime = Double.MAX_VALUE;
             int currentCloudlet = 0;
             int currentVm = 0;
 
+            // find task with max time to execute
             for (int i=0; i < cloudletList.size(); i++) {
                 if (!scheduled.contains(i)) {
                     for (int j=0; j < vmList.size(); j++) {

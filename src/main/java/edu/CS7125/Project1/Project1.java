@@ -200,9 +200,18 @@ public class Project1 {
         Log.printLine("========== OUTPUT ==========");
         Log.printLine(String.format(format, "Cloudlet ID", "STATUS", "Data center ID", "VM ID", "Time", "Start Time", "Finish Time", "Submission Time"));
 
+        double throughput = 0.0;
+        double totaltime = 0.0;
+
         DecimalFormat dft = new DecimalFormat("###.##");
         for (int i = 0; i < size; i++) {
             cloudlet = list.get(i);
+
+            totaltime += cloudlet.getActualCPUTime();
+
+            if (cloudlet.getActualCPUTime() > throughput) {
+                throughput = cloudlet.getActualCPUTime();
+            }
 
             Log.printLine(String.format(format, cloudlet.getCloudletId(),
                                       (cloudlet.getCloudletStatus() == Cloudlet.SUCCESS ? "SUCCESS": "FAILED"),
@@ -213,6 +222,9 @@ public class Project1 {
                                       dft.format(cloudlet.getFinishTime()),
                                       dft.format(cloudlet.getSubmissionTime())));
         }
+
+        Log.printLine();
+        Log.printLine(String.format("Throughput: %.2f, Turnaround: %.2f", throughput, (totaltime/size)));
     }
 
 }
