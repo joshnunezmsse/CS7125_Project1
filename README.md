@@ -1,4 +1,22 @@
 # CS7125_Project1
+# Build and Run
+### Add cloudsim jar to maven repo
+`mvn install:install-file -Dfile=<path-to-file> -DgroupId=org.cloudbus -DartifactId=cloudsim -Dversion=3.0.3 -Dpackaging=jar`
+
+### Build project
+`mvn package`
+
+### Run project
+`java -jar Project1.jar <broker_type>`
+
+**broker_types**
+- default
+- shortestfirst
+- minmin
+- maxmin
+- suffrage
+>>>
+
 # Results
 ## First come first served
 ```
