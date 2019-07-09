@@ -40,14 +40,16 @@ public class Project1 {
 
     public static void main(String[] args) {
         CloudSim.init(1, Calendar.getInstance(), false);
-        
+
         Datacenter dc0 = createDatacenter();
-        
-        //DatacenterBroker broker1 = createBroker();
-        //DatacenterBrokerShortestFirst broker1 = createShortestFirstBroker();
-        //DatacenterBrokerMinMin broker1 = createMinMinBroker();
-        //DatacenterBrokerMaxMin broker1 = createMaxMinBroker();
-        DatacenterBrokerSufferage broker1 = createSufferageBroker();
+        MyBroker broker1 = null;
+        String brokerType = "";
+
+        if (args.length > 0) {
+            brokerType = args[0];
+        }
+
+        broker1 = BrokerWrapper.getInstance(brokerType);
 
         HashMap<String, String> vmOptions = new HashMap<String, String>();
         ArrayList<Vm> vmList = new ArrayList<>();
@@ -131,67 +133,6 @@ public class Project1 {
         
         return retVal;
     }
-    
-    private static DatacenterBroker createBroker() {
-        DatacenterBroker broker = null;
-        
-        try {
-            broker = new DatacenterBroker("Broker"+(nextBrokerNumber++));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return broker;
-    }
-
-    private static DatacenterBrokerShortestFirst createShortestFirstBroker() {
-        DatacenterBrokerShortestFirst brokerShortest = null;
-        try {
-            brokerShortest = new DatacenterBrokerShortestFirst("ShortestFirst");
-        } catch (Exception e)
-        {
-            Log.printLine("Shortest First failed to initialize");
-            e.printStackTrace();
-        }
-
-        return brokerShortest;
-    }
-
-    private static DatacenterBrokerMinMin createMinMinBroker() {
-        DatacenterBrokerMinMin broker = null;
-        
-        try {
-            broker = new DatacenterBrokerMinMin("BrokerMinMin");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return broker;
-    }
-
-    private static DatacenterBrokerMaxMin createMaxMinBroker() {
-        DatacenterBrokerMaxMin broker = null;
-        
-        try {
-            broker = new DatacenterBrokerMaxMin("BrokerMaxMin");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return broker;
-    }
-
-    private static DatacenterBrokerSufferage createSufferageBroker() {
-        DatacenterBrokerSufferage broker = null;
-        
-        try {
-            broker = new DatacenterBrokerSufferage("BrokerSufferage");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return broker;
-    }
 
     private static Datacenter createDatacenter() {
         Datacenter dc = null;
@@ -254,7 +195,7 @@ public class Project1 {
         int size = list.size();
         Cloudlet cloudlet;
 
-        String format = "%15s\t%15s\t%15s\t%10s\t%10s\t%15s\t%15s\t%15s";
+        String format = "%15s\t%10s\t%15s\t%10s\t%10s\t%10s\t%10s\t%18s";
         Log.printLine();
         Log.printLine("========== OUTPUT ==========");
         Log.printLine(String.format(format, "Cloudlet ID", "STATUS", "Data center ID", "VM ID", "Time", "Start Time", "Finish Time", "Submission Time"));
@@ -272,5 +213,6 @@ public class Project1 {
                                       dft.format(cloudlet.getFinishTime()),
                                       dft.format(cloudlet.getSubmissionTime())));
         }
-    }    
+    }
+
 }

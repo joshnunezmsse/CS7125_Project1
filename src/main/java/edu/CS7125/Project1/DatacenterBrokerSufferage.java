@@ -1,11 +1,7 @@
 package edu.CS7125.Project1;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.cloudbus.cloudsim.DatacenterBroker;
-import org.cloudbus.cloudsim.Log;
 
 class DatacenterBrokerSufferage extends DatacenterBroker {
 
@@ -17,7 +13,7 @@ class DatacenterBrokerSufferage extends DatacenterBroker {
     public void startEntity() {
         // setup all the cloudlet to VM bindings to support Sufferage scheduling
         double[][] executionTimes = new double[cloudletList.size()][vmList.size()];
-        
+
         // build execution time matrix
         for (int i=0; i < cloudletList.size(); i++) {
             for (int j=0; j < vmList.size(); j++) {
